@@ -30,8 +30,6 @@ WinSpot = 5, 1
 #Character
 X = 1
 Y = 3
-BX = 1
-BY = 3
 #Empty
 Empty1 = 1, 1
 Empty2 = 1, 2
@@ -53,8 +51,6 @@ def Place(X, Y):
     print(Coordinate)
     if Coordinate == CooWall1 or Coordinate == CooWall2 or Coordinate == CooWall3 or Coordinate == CooWall4 or Coordinate == CooWall5:
         print("You can't move there!")
-        X = X + MispX
-        Y = Y + MispY
     elif Coordinate == WinSpot:
         #Line 1    
         print (empty, wall, empty, empty, character)
@@ -203,19 +199,7 @@ def Place(X, Y):
         print (character, wall, wall, empty, empty)
         #Line 4   
         print (empty, empty, empty, empty, empty, "\n")
-        BX = 1
-        BY = 3
-        print(BX)
-        print(BY)
-        return (BX, BY)
         
-def BoundeCoos(BX, BY):
-    if ((BX) and (BY)) != 0:
-        X = BX
-        Y = BY
-        return (X, Y)
-
-    
 StartGame()
 Help()
 
@@ -231,22 +215,38 @@ print (empty, empty, empty, empty, empty + "\n")
 
 
 user_input = input("\n").upper()
-BoundeCoos(BX, BY)
+    
 while user_input != "L":
     if user_input == "W":
         Y = Y - 1
+        if ((Y == 5) or (Y == 0)):
+            X = 1
+            Y = 3
+            print("Since you went out of bounds, you will now go back to the starting position.\n")
         Place(X, Y)
         user_input = input("\n").upper()
     elif user_input == "S":
         Y = Y + 1
+        if ((Y == 5) or (Y == 0)):
+            X = 1
+            Y = 3
+            print("Since you went out of bounds, you will now go back to the starting position.\n")
         Place(X, Y)
         user_input = input("\n").upper()
     elif user_input == "A":
         X = X - 1
+        if ((X == 6) or (X == 0)):
+            X = 1
+            Y = 3
+            print("Since you went out of bounds, you will now go back to the starting position. \n")
         Place(X, Y)
         user_input = input("\n").upper()
     elif user_input == "D":
         X = X + 1
+        if ((X == 6) or (X == 0)):
+            X = 1
+            Y = 3
+            print("Since you went out of bounds, you will now go back to the starting position.\n")
         Place(X, Y)
         user_input = input("\n").upper()
     elif user_input == "?":
@@ -257,3 +257,4 @@ while user_input != "L":
         user_input = input("\n").upper()
         
 print("Goodbye!")
+
