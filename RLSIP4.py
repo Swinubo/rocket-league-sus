@@ -15,6 +15,9 @@ ScreenHeight = pyautogui.size().height
 WidthRatio = 1950/ScreenWidth
 HeightRatio = 1080/ScreenHeight
 
+print(WidthRatio)
+print(HeightRatio)
+
 X = 0
 Y = 0
 scrn = pygame.display.set_mode((X, Y))
@@ -64,11 +67,11 @@ while not done:
             done = True
 
         screen.fill(YELLOW)
-        DEFAULT_IMAGE_SIZE = (200, 200)
-        BOX_IMAGE_SIZE = (502, 376)
-        PLAY_IMAGE_SIZE = (428, 249)
-        CARD_IMAGE_SIZE = (300, 450)
-        CROUCH_IMAGE_SIZE = (200, 100)
+        DEFAULT_IMAGE_SIZE = (200/WidthRatio, 200/HeightRatio)
+        BOX_IMAGE_SIZE = (502/WidthRatio, 376/HeightRatio)
+        PLAY_IMAGE_SIZE = (428/WidthRatio, 249/HeightRatio)
+        CARD_IMAGE_SIZE = (300/WidthRatio, 450/HeightRatio)
+        CROUCH_IMAGE_SIZE = (200/WidthRatio, 100/HeightRatio)
 
         ShopDisp = pygame.image.load("C:\\Users\\silgas\Documents\\Gaspar\\Python Projects\\Images\\Shop.jpg").convert()
         ShopDispl = pygame.transform.scale(ShopDisp, DEFAULT_IMAGE_SIZE)
