@@ -1,0 +1,11 @@
+from tkinter import *
+from tkinter import messagebox
+
+window = Tk()
+window.eval('tk::PlaceWindow %s Center' % window.winfo_toplevel())
+
+messagebox.showinfo('Bonjour', 'Ça va?')
+
+messagebox.showerror('Bonjour', 'Ça va?')
+
+messagebox.showwarning('Bonjour', 'Ça va?')
