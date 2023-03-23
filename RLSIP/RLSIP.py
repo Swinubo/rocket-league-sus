@@ -2,10 +2,6 @@ import pygame, easygui, pathlib, os, DisplStuff
 
 pygame.init()
 
-X = 1850
-Y = 1000
-scrn = pygame.display.set_mode((X, Y))
-
 pygame.display.set_caption("Rocket League Sus in Python")
 
 current_dir = os.getcwd()
@@ -23,12 +19,12 @@ def FallAnimation(CharacterX, CharacterY):
         clock.tick(30)
 
 def LevelDispl(CharacterX, CharacterY, Image):
-    DisplStuff.screen.fill(DisplStuff.WHITE)
-    pygame.draw.rect(scrn, DisplStuff.BLACK, pygame.Rect(0, 500, 600, 750))
-    pygame.draw.rect(scrn, DisplStuff.BLACK, pygame.Rect(800, 500, 1850, 750))
-    pygame.draw.rect(scrn, DisplStuff.BLACK, pygame.Rect(1100, 0, 400, 400))
-    scrn.blit(DisplStuff.HomeDispl, (1650, 0))
-    scrn.blit(Image, (CharacterX, CharacterY))
+    DisplStuff.scrn.fill(DisplStuff.WHITE)
+    pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(0, 500, 600, 750))
+    pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(800, 500, 1850, 750))
+    pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(1100, 0, 400, 400))
+    DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
+    DisplStuff.scrn.blit(Image, (CharacterX, CharacterY))
     pygame.display.flip()
 
 def OutUpCheck(CharacterY):
@@ -45,6 +41,7 @@ def OutDownCheck(CharacterY):
 
 done = False
 clock = pygame.time.Clock()
+RealName = 'Guest'
 CurrentLevel = 0
 
 while not done:
@@ -53,17 +50,19 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
-        DisplStuff.screen.fill(DisplStuff.YELLOW)
+        DisplStuff.scrn.fill(DisplStuff.YELLOW)
 
         MenuFont = pygame.font.SysFont('timsnewroman',  100)
         LevelMenuDispl = MenuFont.render('Level: ' + str(CurrentLevel), True, DisplStuff.BLACK, DisplStuff.YELLOW)
+        NameMenuDispl = MenuFont.render('Name: ' + RealName, True, DisplStuff.BLACK, DisplStuff.YELLOW)
    
-        scrn.blit(DisplStuff.ShopDispl, (0, 150))
-        scrn.blit(DisplStuff.PlayersDispl, (0, 400))
-        scrn.blit(DisplStuff.PlayDispl, (1400, 700))
-        scrn.blit(DisplStuff.LogInDispl, (1350, 10))
-        scrn.blit(DisplStuff.CreateAccountDispl, (1600, 10))
-        scrn.blit(LevelMenuDispl, (400, 20))
+        DisplStuff.scrn.blit(DisplStuff.ShopDispl, (0, 150))
+        DisplStuff.scrn.blit(DisplStuff.PlayersDispl, (0, 400))
+        DisplStuff.scrn.blit(DisplStuff.PlayDispl, (1400, 700))
+        DisplStuff.scrn.blit(DisplStuff.LogInDispl, (1350, 10))
+        DisplStuff.scrn.blit(DisplStuff.CreateAccountDispl, (1600, 10))
+        DisplStuff.scrn.blit(LevelMenuDispl, (550, 20))
+        DisplStuff.scrn.blit(NameMenuDispl, (50, 20))
 
         pygame.display.flip()
 
@@ -80,18 +79,18 @@ while not done:
                             if event.type == pygame.QUIT:
                                 pygame.quit()
                                 quit()
-                        DisplStuff.screen.fill(DisplStuff.YELLOW)
-                        scrn.blit(DisplStuff.BoxBlueDispl, (50, 300))
-                        scrn.blit(DisplStuff.BoxRedDispl, (700, 300))
-                        scrn.blit(DisplStuff.BoxYellowDispl, (1300, 300))
-                        scrn.blit(DisplStuff.HomeDispl, (1650, 0))
-                        scrn.blit(DisplStuff.Boxes, (700, 100))
-                        pygame.draw.rect(scrn, DisplStuff.GREEN, pygame.Rect(50, 700, 500, 250))
-                        scrn.blit(DisplStuff.Buy, (130, 750))
-                        pygame.draw.rect(scrn, DisplStuff.GREEN, pygame.Rect(700, 700, 500, 250))
-                        scrn.blit(DisplStuff.Buy, (800, 750))
-                        pygame.draw.rect(scrn, DisplStuff.GREEN, pygame.Rect(1300, 700, 500, 250))
-                        scrn.blit(DisplStuff.Buy, (1400, 750))
+                        DisplStuff.scrn.fill(DisplStuff.YELLOW)
+                        DisplStuff.scrn.blit(DisplStuff.BoxBlueDispl, (50, 300))
+                        DisplStuff.scrn.blit(DisplStuff.BoxRedDispl, (700, 300))
+                        DisplStuff.scrn.blit(DisplStuff.BoxYellowDispl, (1300, 300))
+                        DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
+                        DisplStuff.scrn.blit(DisplStuff.Boxes, (700, 100))
+                        pygame.draw.rect(DisplStuff.scrn, DisplStuff.GREEN, pygame.Rect(50, 700, 500, 250))
+                        DisplStuff.scrn.blit(DisplStuff.Buy, (130, 750))
+                        pygame.draw.rect(DisplStuff.scrn, DisplStuff.GREEN, pygame.Rect(700, 700, 500, 250))
+                        DisplStuff.scrn.blit(DisplStuff.Buy, (800, 750))
+                        pygame.draw.rect(DisplStuff.scrn, DisplStuff.GREEN, pygame.Rect(1300, 700, 500, 250))
+                        DisplStuff.scrn.blit(DisplStuff.Buy, (1400, 750))
                         pygame.display.flip()
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             x, y = event.pos
@@ -105,12 +104,12 @@ while not done:
                             if event.type == pygame.QUIT:
                                 pygame.quit()
                                 quit()
-                        DisplStuff.screen.fill(DisplStuff.YELLOW)
-                        scrn.blit(DisplStuff.RonaldoDispl, (300, 250))
-                        scrn.blit(DisplStuff.MessiDispl, (800, 250))
-                        scrn.blit(DisplStuff.NeymarDispl, (1300, 250))
-                        scrn.blit(DisplStuff.HomeDispl, (1650, 0))
-                        scrn.blit(DisplStuff.Goats, (700, 100))
+                        DisplStuff.scrn.fill(DisplStuff.YELLOW)
+                        DisplStuff.scrn.blit(DisplStuff.RonaldoDispl, (300, 250))
+                        DisplStuff.scrn.blit(DisplStuff.MessiDispl, (800, 250))
+                        DisplStuff.scrn.blit(DisplStuff.NeymarDispl, (1300, 250))
+                        DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
+                        DisplStuff.scrn.blit(DisplStuff.Goats, (700, 100))
                         pygame.display.flip()
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             x, y = event.pos
@@ -134,11 +133,11 @@ while not done:
                                     CharacterX -= 100
                                     if CharacterX < 0:
                                         CharacterX = 0 
-                                    scrn.blit(DisplStuff.PresidentDispl, (CharacterX, CharacterY))
+                                    DisplStuff.scrn.blit(DisplStuff.PresidentDispl, (CharacterX, CharacterY))
                                     pygame.display.flip()
                                 elif event.key == pygame.K_RIGHT:
                                     CharacterX += 100
-                                    scrn.blit(DisplStuff.PresidentDispl, (CharacterX, CharacterY))
+                                    DisplStuff.scrn.blit(DisplStuff.PresidentDispl, (CharacterX, CharacterY))
                                     pygame.display.flip()
                                 elif event.key == pygame.K_UP:
                                     OutUp = False
@@ -255,8 +254,9 @@ while not done:
                         if Name == Player:
                             easygui.msgbox('We have found your account! You are on level ' + Level + ' and your name is ' + Name + '.' , 'Account')
                             Confirmation = easygui.ynbox('Are you sure you want to load this account?' , 'Loading Accounts')
-                            if Confirmation == 'yes':
+                            if Confirmation:
                                 CurrentLevel = Level
+                                RealName = Name
                             FoundPlayer = True
                         elif Name == 'QNY':
                             if QNYPass == 1:

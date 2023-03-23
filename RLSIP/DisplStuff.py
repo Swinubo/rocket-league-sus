@@ -1,9 +1,9 @@
-import pygame, pathlib, os
+import pygame, pathlib, os, pyautogui
 
 pygame.init()
 
-size = (1850, 1000)
-screen = pygame.display.set_mode(size)
+X, Y = pyautogui.size()
+scrn = pygame.display.set_mode(size=(X, Y))
 
 current_dir = os.getcwd()
 image_path = pathlib.Path(current_dir, 'RLSIP Images')
