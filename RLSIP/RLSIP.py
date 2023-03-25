@@ -24,6 +24,45 @@ def LevelDispl(CharacterX, CharacterY, Image):
     DisplStuff.scrn.blit(Image, (CharacterX, CharacterY))
     pygame.display.flip()
 
+def Jump(CharacterX, CharacterY):
+    OutUp = False
+    OutDown = False
+
+    while OutUp == OutUpCheck(CharacterY):
+        CharacterY -= 20
+        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    CharacterX -= 100
+                    if CharacterX == 1400:
+                        CharacterX = 1500
+                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+                elif event.key == pygame.K_RIGHT:
+                    CharacterX += 100
+                    if CharacterX == 1000:
+                        CharacterX = 900
+                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+        clock.tick(30)
+
+    while OutDown == OutDownCheck(CharacterY):
+        CharacterY += 20
+        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    CharacterX -= 100
+                    if CharacterX == 1400:
+                        CharacterX = 1500
+                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+                elif event.key == pygame.K_RIGHT:
+                    CharacterX += 100
+                    if CharacterX == 1000:
+                        CharacterX = 900
+                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+        clock.tick(30)
+    return CharacterX, 300
+
 def OutUpCheck(CharacterY):
     if CharacterY < 0:
         return True
@@ -35,6 +74,42 @@ def OutDownCheck(CharacterY):
         return True
     else:
         return False
+    
+def Crouch(CharacterX, CharacterY):
+    OutCrouch = False
+    CharacterY += 100
+    while OutCrouch == False:
+        LevelDispl(CharacterX, CharacterY, DisplStuff.CrouchedDispl)
+        for event in pygame.event.get():
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_DOWN:
+                    if (CharacterX > 900) and (CharacterX < 1500):
+                        easygui.msgbox('You can not do that right now! You are crouched!' , 'Warning!')
+                        CharacterX = 900
+                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+                    OutCrouch = True
+                    CharacterY -= 100
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    CharacterX -= 100
+                    if CharacterX == 600:
+                        FallAnimation(CharacterX, CharacterY)
+                        CharacterX = 0
+                        CharacterY = 300
+                    elif CharacterX < 0:
+                        CharacterX = 0
+                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+                if event.key == pygame.K_RIGHT:
+                    CharacterX += 100
+                    if CharacterX == 600:
+                        FallAnimation(CharacterX, CharacterY)
+                        CharacterX = 0
+                        CharacterY = 300
+                    elif CharacterX < 0:
+                        CharacterX = 0
+                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl, DisplStuff.PresidentDispl)
+    return CharacterX, CharacterY
+
 
 done = False
 clock = pygame.time.Clock()
@@ -138,79 +213,11 @@ while not done:
                                     DisplStuff.scrn.blit(DisplStuff.PresidentDispl, (CharacterX, CharacterY))
                                     pygame.display.flip()
                                 elif event.key == pygame.K_UP:
-                                    OutUp = False
-                                    OutDown = False
-
-                                    while OutUp == OutUpCheck(CharacterY):
-                                        CharacterY -= 20
-                                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-                                        for event in pygame.event.get():
-                                            if event.type == pygame.KEYDOWN:
-                                                if event.key == pygame.K_LEFT:
-                                                    CharacterX -= 100
-                                                    if CharacterX == 1400:
-                                                        CharacterX = 1500
-                                                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-                                                elif event.key == pygame.K_RIGHT:
-                                                    CharacterX += 100
-                                                    if CharacterX == 1000:
-                                                        CharacterX = 900
-                                                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-                                        clock.tick(30)
-
-                                    while OutDown == OutDownCheck(CharacterY):
-                                        CharacterY += 20
-                                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-                                        for event in pygame.event.get():
-                                            if event.type == pygame.KEYDOWN:
-                                                if event.key == pygame.K_LEFT:
-                                                    CharacterX -= 100
-                                                    if CharacterX == 1400:
-                                                        CharacterX = 1500
-                                                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-                                                elif event.key == pygame.K_RIGHT:
-                                                    CharacterX += 100
-                                                    if CharacterX == 1000:
-                                                        CharacterX = 900
-                                                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-                                        clock.tick(30)
-
-                                    CharacterY = 300
-                                    #clock.tick(30)
+                                    CharacterX, CharacterY = Jump(CharacterX, CharacterY)
 
                                 elif event.key == pygame.K_DOWN:
-                                    OutCrouch = False
-                                    CharacterY += 100
-                                    while OutCrouch == False:
-                                        LevelDispl(CharacterX, CharacterY, DisplStuff.CrouchedDispl)
-                                        for event in pygame.event.get():
-                                            if event.type == pygame.KEYUP:
-                                                if event.key == pygame.K_DOWN:
-                                                    if (CharacterX > 900) and (CharacterX < 1500):
-                                                        easygui.msgbox('You can not do that right now! You are crouched!' , 'Warning!')
-                                                        CharacterX = 900
-                                                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-                                                    OutCrouch = True
-                                                    CharacterY -= 100
-                                            elif event.type == pygame.KEYDOWN:
-                                                if event.key == pygame.K_LEFT:
-                                                    CharacterX -= 100
-                                                    if CharacterX == 600:
-                                                        FallAnimation(CharacterX, CharacterY)
-                                                        CharacterX = 0
-                                                        CharacterY = 300
-                                                    elif CharacterX < 0:
-                                                        CharacterX = 0
-                                                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-                                                if event.key == pygame.K_RIGHT:
-                                                    CharacterX += 100
-                                                    if CharacterX == 600:
-                                                        FallAnimation(CharacterX, CharacterY)
-                                                        CharacterX = 0
-                                                        CharacterY = 300
-                                                    elif CharacterX < 0:
-                                                        CharacterX = 0
-                                                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl, DisplStuff.PresidentDispl)
+                                    CharacterX, CharacterY = Crouch(CharacterX, CharacterY)
+                                    
 
                             if CharacterX > 1800:
                                 LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
