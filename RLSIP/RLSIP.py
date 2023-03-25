@@ -1,11 +1,8 @@
-import pygame, easygui, pathlib, os, DisplStuff
+import pygame, easygui, pathlib, DisplStuff
 
 pygame.init()
 
 pygame.display.set_caption("Rocket League Sus in Python")
-
-current_dir = os.getcwd()
-image_path = pathlib.Path(current_dir, 'RLSIP Images')
 
 def FallAnimation(CharacterX, CharacterY):
     OutFallAnimation = False
@@ -61,6 +58,7 @@ while not done:
         DisplStuff.scrn.blit(DisplStuff.PlayDispl, (1400, 700))
         DisplStuff.scrn.blit(DisplStuff.LogInDispl, (1350, 10))
         DisplStuff.scrn.blit(DisplStuff.CreateAccountDispl, (1600, 10))
+        DisplStuff.scrn.blit(DisplStuff.ExitDispl, (1870, 0))
         DisplStuff.scrn.blit(LevelMenuDispl, (550, 20))
         DisplStuff.scrn.blit(NameMenuDispl, (50, 20))
 
@@ -198,7 +196,7 @@ while not done:
                                                 if event.key == pygame.K_LEFT:
                                                     CharacterX -= 100
                                                     if CharacterX == 600:
-                                                        FallAnimation(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+                                                        FallAnimation(CharacterX, CharacterY)
                                                         CharacterX = 0
                                                         CharacterY = 300
                                                     elif CharacterX < 0:
@@ -235,7 +233,7 @@ while not done:
                                     OutPlay = True
             elif ((x < 1576) and (x > 1349) and (y < 136) and (y > 9)):
                 Player = easygui.enterbox("What is your account name?")
-                Accounts = open(str(pathlib.Path(current_dir, 'Accounts.txt')), 'r')
+                Accounts = open(str(pathlib.Path(DisplStuff.current_dir, 'Accounts.txt')), 'r')
                 AccountsR = Accounts.readlines()
                 AccountList = []
                 LevelList = []
@@ -266,11 +264,14 @@ while not done:
             elif ((x < 1826) and (x > 1599) and (y < 136) and (y > 9)):
                 Name = easygui.enterbox("What is do you want your account name to be?")
 
-                with open(str(pathlib.Path(current_dir, 'Accounts.txt')), 'a') as Accounts:
+                with open(str(pathlib.Path(DisplStuff.current_dir, 'Accounts.txt')), 'a') as Accounts:
                     Accounts.write("\n" + str(CurrentLevel) + ' ' +  Name)
                     Accounts.close()
                 easygui.msgbox('Your account has been created succesfully!' , 'Account') 
-        
+
+            elif ((x < 1920) and (x > 1869) and (y < 50) and (y > 0)):
+                pygame.quit()
+                quit()
         # This limits the while loop to a max of 60 times per second.
         clock.tick(60)
 

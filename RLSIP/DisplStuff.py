@@ -3,7 +3,7 @@ import pygame, pathlib, os, pyautogui
 pygame.init()
 
 X, Y = pyautogui.size()
-scrn = pygame.display.set_mode(size=(X, Y))
+scrn = pygame.display.set_mode((X, Y))
 
 current_dir = os.getcwd()
 image_path = pathlib.Path(current_dir, 'RLSIP Images')
@@ -20,6 +20,7 @@ PLAY_IMAGE_SIZE = (428, 249)
 RECT_IMAGE_SIZE = (225, 125)
 CARD_IMAGE_SIZE = (300, 450)
 CROUCH_IMAGE_SIZE = (200, 100)
+SMALL_SQUARE_IMAGE_SIZE = (50, 50)
 
 ShopDisp = pygame.image.load(str(pathlib.Path(image_path, "Shop.jpg"))).convert()
 ShopDispl = pygame.transform.scale(ShopDisp, DEFAULT_IMAGE_SIZE)
@@ -60,6 +61,9 @@ LogInDispl = pygame.transform.scale(LogInDisp, RECT_IMAGE_SIZE)
 
 CreateAccountDisp = pygame.image.load(str(pathlib.Path(image_path, "CreateAccount.png"))).convert()
 CreateAccountDispl = pygame.transform.scale(CreateAccountDisp, RECT_IMAGE_SIZE)
+
+ExitDisp = pygame.image.load(str(pathlib.Path(image_path, "Exit.png"))).convert()
+ExitDispl = pygame.transform.scale(ExitDisp, SMALL_SQUARE_IMAGE_SIZE)
 
 font = pygame.font.SysFont('Comic Sans M',  200)
 Goats = font.render('GOATS', True, BLACK, YELLOW)
