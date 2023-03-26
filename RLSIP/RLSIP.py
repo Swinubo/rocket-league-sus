@@ -37,12 +37,10 @@ def Jump(CharacterX, CharacterY):
                     CharacterX -= 100
                     if CharacterX == 1400:
                         CharacterX = 1500
-                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
                 elif event.key == pygame.K_RIGHT:
                     CharacterX += 100
                     if CharacterX == 1000:
                         CharacterX = 900
-                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
         clock.tick(30)
 
     while OutDown == OutDownCheck(CharacterY):
@@ -54,12 +52,10 @@ def Jump(CharacterX, CharacterY):
                     CharacterX -= 100
                     if CharacterX == 1400:
                         CharacterX = 1500
-                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
                 elif event.key == pygame.K_RIGHT:
                     CharacterX += 100
                     if CharacterX == 1000:
                         CharacterX = 900
-                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
         clock.tick(30)
     return CharacterX, 300
 
@@ -86,7 +82,6 @@ def Crouch(CharacterX, CharacterY):
                     if (CharacterX > 900) and (CharacterX < 1500):
                         easygui.msgbox('You can not do that right now! You are crouched!' , 'Warning!')
                         CharacterX = 900
-                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
                     OutCrouch = True
                     CharacterY -= 100
             elif event.type == pygame.KEYDOWN:
@@ -98,7 +93,6 @@ def Crouch(CharacterX, CharacterY):
                         CharacterY = 300
                     elif CharacterX < 0:
                         CharacterX = 0
-                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
                 if event.key == pygame.K_RIGHT:
                     CharacterX += 100
                     if CharacterX == 600:
@@ -107,7 +101,6 @@ def Crouch(CharacterX, CharacterY):
                         CharacterY = 300
                     elif CharacterX < 0:
                         CharacterX = 0
-                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl, DisplStuff.PresidentDispl)
     return CharacterX, CharacterY
 
 
@@ -178,11 +171,14 @@ while not done:
                                 pygame.quit()
                                 quit()
                         DisplStuff.scrn.fill(DisplStuff.YELLOW)
-                        DisplStuff.scrn.blit(DisplStuff.RonaldoDispl, (300, 250))
-                        DisplStuff.scrn.blit(DisplStuff.MessiDispl, (800, 250))
-                        DisplStuff.scrn.blit(DisplStuff.NeymarDispl, (1300, 250))
+                        DisplStuff.scrn.blit(DisplStuff.SelectPresidentDispl, (300, 350))
+                        DisplStuff.scrn.blit(DisplStuff.SelectPMDispl, (800, 350))
+                        DisplStuff.scrn.blit(DisplStuff.SelectMayorDispl, (1300, 350))
                         DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
-                        DisplStuff.scrn.blit(DisplStuff.Goats, (700, 100))
+                        DisplStuff.scrn.blit(DisplStuff.Characters, (600, 100))
+                        DisplStuff.scrn.blit(DisplStuff.Use, (375, 760))
+                        DisplStuff.scrn.blit(DisplStuff.Use, (850, 760))
+                        DisplStuff.scrn.blit(DisplStuff.Use, (1350, 760))
                         pygame.display.flip()
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             x, y = event.pos

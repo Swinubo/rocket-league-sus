@@ -21,6 +21,7 @@ RECT_IMAGE_SIZE = (225, 125)
 CARD_IMAGE_SIZE = (300, 450)
 CROUCH_IMAGE_SIZE = (200, 100)
 SMALL_SQUARE_IMAGE_SIZE = (50, 50)
+CHARACTER_IMAGE_SIZE = (400, 400)
 
 ShopDisp = pygame.image.load(str(pathlib.Path(image_path, "Shop.jpg"))).convert()
 ShopDispl = pygame.transform.scale(ShopDisp, DEFAULT_IMAGE_SIZE)
@@ -54,7 +55,18 @@ NeymarDispl = pygame.transform.scale(NeymarDisp, CARD_IMAGE_SIZE)
 
 PresidentDisp = pygame.image.load(str(pathlib.Path(image_path, "President.jpg"))).convert()
 PresidentDispl = pygame.transform.scale(PresidentDisp, DEFAULT_IMAGE_SIZE)
+SelectPresidentDispl = pygame.transform.scale(PresidentDisp, CHARACTER_IMAGE_SIZE)
 CrouchedDispl = pygame.transform.scale(PresidentDisp, CROUCH_IMAGE_SIZE)
+
+MayorDisp = pygame.image.load(str(pathlib.Path(image_path, "Mayor.jpg"))).convert()
+MayorDispl = pygame.transform.scale(MayorDisp, DEFAULT_IMAGE_SIZE)
+SelectMayorDispl = pygame.transform.scale(MayorDisp, CHARACTER_IMAGE_SIZE)
+CrouchedMayorDispl = pygame.transform.scale(MayorDisp, CROUCH_IMAGE_SIZE)
+
+PMDisp = pygame.image.load(str(pathlib.Path(image_path, "PM.jpg"))).convert()
+PMDispl = pygame.transform.scale(PMDisp, DEFAULT_IMAGE_SIZE)
+SelectPMDispl = pygame.transform.scale(PMDisp, CHARACTER_IMAGE_SIZE)
+CrouchedPMDispl = pygame.transform.scale(PMDisp, CROUCH_IMAGE_SIZE)
 
 LogInDisp = pygame.image.load(str(pathlib.Path(image_path, "LogIn.png"))).convert()
 LogInDispl = pygame.transform.scale(LogInDisp, RECT_IMAGE_SIZE)
@@ -66,6 +78,7 @@ ExitDisp = pygame.image.load(str(pathlib.Path(image_path, "Exit.png"))).convert(
 ExitDispl = pygame.transform.scale(ExitDisp, SMALL_SQUARE_IMAGE_SIZE)
 
 font = pygame.font.SysFont('Comic Sans M',  200)
-Goats = font.render('GOATS', True, BLACK, YELLOW)
+Characters = font.render('Characters', True, BLACK, YELLOW)
 Boxes = font.render('BOXES', True, BLACK, YELLOW)
 Buy = font.render('BUY', True, BLACK, GREEN)
+Use = font.render('USE', True, BLACK, GREEN)
