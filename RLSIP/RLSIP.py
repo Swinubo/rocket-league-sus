@@ -109,6 +109,9 @@ clock = pygame.time.Clock()
 RealName = 'Guest'
 CurrentLevel = 0
 
+#Main game loop
+#Do you think that the code should have more comments?
+
 while not done:
 
     for event in pygame.event.get():
