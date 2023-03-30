@@ -4,25 +4,34 @@ pygame.init()
 
 pygame.display.set_caption("Rocket League Sus in Python")
 
-def FallAnimation(CharacterX, CharacterY):
+def FallAnimation(CharacterX, CharacterY, Limit):
     OutFallAnimation = False
     while OutFallAnimation == False:
         CharacterY += 20
         LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-        if CharacterY > 1000:
-            LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-            pygame.display.flip()
+        if CharacterY > Limit:
             OutFallAnimation = True 
         clock.tick(30)
 
 def LevelDispl(CharacterX, CharacterY, Image):
-    DisplStuff.scrn.fill(DisplStuff.WHITE)
-    pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(0, 500, 600, 750))
-    pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(800, 500, 1850, 750))
-    pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(1100, 0, 400, 400))
-    DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
-    DisplStuff.scrn.blit(Image, (CharacterX, CharacterY))
-    pygame.display.flip()
+    if CurrentLevel == 0:
+        DisplStuff.scrn.fill(DisplStuff.WHITE)
+        pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(0, 500, 600, 750))
+        pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(800, 500, 1850, 750))
+        pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(1100, 0, 400, 400))
+        DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
+        DisplStuff.scrn.blit(Image, (CharacterX, CharacterY))
+        pygame.display.flip()
+    elif CurrentLevel == 1:
+        DisplStuff.scrn.fill(DisplStuff.WHITE)
+        pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(0, 200, 200, 1800))
+        pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(200, 350, 200, 1800))
+        pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(400, 500, 200, 1800))
+        pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(900, 200, 200, 750))
+        pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(800, 700, 1850, 750))
+        DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
+        DisplStuff.scrn.blit(Image, (CharacterX, CharacterY))
+        pygame.display.flip()
 
 def Jump(CharacterX, CharacterY):
     OutUp = False
@@ -88,21 +97,99 @@ def Crouch(CharacterX, CharacterY):
                 if event.key == pygame.K_LEFT:
                     CharacterX -= 100
                     if CharacterX == 600:
-                        FallAnimation(CharacterX, CharacterY)
+                        FallAnimation(CharacterX, CharacterY, 1000)
                         CharacterX = 0
-                        CharacterY = 300
+                        CharacterY = 400
                     elif CharacterX < 0:
                         CharacterX = 0
                 if event.key == pygame.K_RIGHT:
                     CharacterX += 100
                     if CharacterX == 600:
-                        FallAnimation(CharacterX, CharacterY)
+                        FallAnimation(CharacterX, CharacterY, 1000)
                         CharacterX = 0
-                        CharacterY = 300
+                        CharacterY = 400
                     elif CharacterX < 0:
                         CharacterX = 0
     return CharacterX, CharacterY
 
+def RegKeys(CurrentLevel):
+    OutPlay = False
+    CharacterX, CharacterY = intitXY(CurrentLevel)
+    while OutPlay == False:
+        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    CharacterX -= 100
+                    if CharacterX < 0:
+                        CharacterX = 0 
+                    DisplStuff.scrn.blit(DisplStuff.PresidentDispl, (CharacterX, CharacterY))
+                    pygame.display.flip()
+                elif event.key == pygame.K_RIGHT:
+                    CharacterX += 100
+                    DisplStuff.scrn.blit(DisplStuff.PresidentDispl, (CharacterX, CharacterY))
+                    pygame.display.flip()
+                elif event.key == pygame.K_UP:
+                    CharacterX, CharacterY = Jump(CharacterX, CharacterY)
+
+                elif event.key == pygame.K_DOWN:
+                    CharacterX, CharacterY = Crouch(CharacterX, CharacterY)
+                    
+            CharacterX, CharacterY, CurrentLevel, OutPlay = Limits(CharacterX, CharacterY, CurrentLevel)
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = event.pos
+                if ((x < 1851) and (x > 1649) and (y < 201) and (y > 0)):
+                    OutPlay = True
+    return CharacterX, CharacterY, CurrentLevel
+
+def Limits(CharacterX, CharacterY, CurrentLevel):
+    if CurrentLevel == 0:
+        if CharacterX > 1800:
+            LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+            easygui.msgbox('You just beat this level!' , 'Congratulations')
+            CurrentLevel += 1
+            return CharacterX, CharacterY, CurrentLevel, True
+        elif CharacterX == 600:
+            FallAnimation(CharacterX, CharacterY, 1000)
+            CharacterX = 0
+            CharacterY = 300
+        elif CharacterX == 1000:
+            CharacterX = 900
+            LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+        elif CharacterX == 1400:
+            CharacterX = 1500
+            LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+        return CharacterX, CharacterY, CurrentLevel, False
+    elif CurrentLevel == 1:
+        if CharacterX > 1800:
+            LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+            easygui.msgbox('You just beat this level!' , 'Congratulations')
+            CurrentLevel += 1
+            return CharacterX, CharacterY, CurrentLevel, True
+        elif CharacterX == 200:
+            FallAnimation(CharacterX, CharacterY, 200)
+            CharacterX = 0
+            CharacterY = 300
+        elif CharacterX == 1000:
+            CharacterX = 900
+            LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+        elif CharacterX == 1400:
+            CharacterX = 1500
+            LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+        return CharacterX, CharacterY, CurrentLevel, False
+    
+def intitXY(CurrentLevel):
+    if CurrentLevel == 0:
+        return 0, 300
+    elif CurrentLevel == 1:
+        return 0, 0
+        
 
 done = False
 clock = pygame.time.Clock()
@@ -189,54 +276,7 @@ while not done:
                                 OutPlayers = True
                         clock.tick(60) 
             elif ((x < 1831) and (x > 1399) and (y < 951) and (y > 699)):
-                    OutPlay = False
-                    CharacterX = 0
-                    CharacterY = 300
-                    while OutPlay == False:
-                        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-
-                        for event in pygame.event.get():
-                            if event.type == pygame.QUIT:
-                                pygame.quit()
-                                quit()
-
-                            if event.type == pygame.KEYDOWN:
-                                if event.key == pygame.K_LEFT:
-                                    CharacterX -= 100
-                                    if CharacterX < 0:
-                                        CharacterX = 0 
-                                    DisplStuff.scrn.blit(DisplStuff.PresidentDispl, (CharacterX, CharacterY))
-                                    pygame.display.flip()
-                                elif event.key == pygame.K_RIGHT:
-                                    CharacterX += 100
-                                    DisplStuff.scrn.blit(DisplStuff.PresidentDispl, (CharacterX, CharacterY))
-                                    pygame.display.flip()
-                                elif event.key == pygame.K_UP:
-                                    CharacterX, CharacterY = Jump(CharacterX, CharacterY)
-
-                                elif event.key == pygame.K_DOWN:
-                                    CharacterX, CharacterY = Crouch(CharacterX, CharacterY)
-                                    
-
-                            if CharacterX > 1800:
-                                LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-                                easygui.msgbox('You just beat this level!' , 'Congratulations')
-                                CurrentLevel += 1
-                                OutPlay = True
-                            elif CharacterX == 600:
-                                FallAnimation(CharacterX, CharacterY)
-                                CharacterX = 0
-                                CharacterY = 300
-                            elif CharacterX == 1000:
-                                CharacterX = 900
-                                LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-                            elif CharacterX == 1400:
-                                CharacterX = 1500
-                                LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
-                            if event.type == pygame.MOUSEBUTTONDOWN:
-                                x, y = event.pos
-                                if ((x < 1851) and (x > 1649) and (y < 201) and (y > 0)):
-                                    OutPlay = True
+                    CharacterX, CharacterY, CurrentLevel = RegKeys(CurrentLevel)
             elif ((x < 1576) and (x > 1349) and (y < 136) and (y > 9)):
                 Player = easygui.enterbox("What is your account name?")
                 Accounts = open(str(pathlib.Path(DisplStuff.current_dir, 'Accounts.txt')), 'r')
