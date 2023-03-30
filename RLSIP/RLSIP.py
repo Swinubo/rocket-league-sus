@@ -66,7 +66,7 @@ def Jump(CharacterX, CharacterY):
                     if CharacterX == 1000:
                         CharacterX = 900
         clock.tick(30)
-    return CharacterX, 300
+    return CharacterX, CharacterY - 20
 
 def OutUpCheck(CharacterY):
     if CharacterY < 0:
@@ -174,8 +174,8 @@ def Limits(CharacterX, CharacterY, CurrentLevel):
             return CharacterX, CharacterY, CurrentLevel, True
         elif CharacterX == 200:
             FallAnimation(CharacterX, CharacterY, 200)
-            CharacterX = 0
-            CharacterY = 300
+            CharacterX = 200
+            CharacterY = 200
         elif CharacterX == 1000:
             CharacterX = 900
             LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
