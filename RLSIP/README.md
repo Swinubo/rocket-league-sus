@@ -3,8 +3,8 @@
 This is a game that is being developped. But if you want to play it here is how:
 
 ## **Steps:**
-1. Make sure to have **Visual Studio Code** installed
-2. Make sure to also have **Git** installed so you you can pull my code
+1. Make sure to have **Visual Studio Code** installed.
+2. Make sure to also have **Git** installed so you you can pull my code.
     1. Open the command line.
     2. Type `cd <Folder where you want to push your code path>`
     3. Type  `git clone <Link of the online git repository> `
