@@ -59,12 +59,10 @@ def Jump(CharacterX, CharacterY, CurrentLevel):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     CharacterX -= 100
-                    if CharacterX == 1400:
-                        CharacterX = 1500
+                    CharacterX, CharacterY, CurrentLevel, OutPlay = Limits(CharacterX, CharacterY, CurrentLevel)
                 elif event.key == pygame.K_RIGHT:
                     CharacterX += 100
-                    if CharacterX == 1000:
-                        CharacterX = 900
+                    CharacterX, CharacterY, CurrentLevel, OutPlay = Limits(CharacterX, CharacterY, CurrentLevel)
         clock.tick(30)
     return CharacterX, CharacterY - 20
 
@@ -187,8 +185,8 @@ def Limits(CharacterX, CharacterY, CurrentLevel):
             CharacterX, CharacterY = initXY(CurrentLevel)
         elif (CharacterX == 100) and (CharacterY != 0):
             CharacterX = 200
-        elif (CharacterX == 800) and (CharacterY != 0):
-            CharacterX = 200
+        elif (CharacterX == 300) and (CharacterY != 350):
+            CharacterX = 400
         return CharacterX, CharacterY, CurrentLevel, False
     
 def initXY(CurrentLevel):
@@ -342,8 +340,6 @@ while not done:
                         Accounts.write("\n" + str(CurrentLevel) + ' ' +  Name)
                         Accounts.close()
                     easygui.msgbox('Your account has been created succesfully!' , 'Account')
-                else:
-                    print('SIUUUUUUUUU') 
 
             elif ((x < 1920) and (x > 1869) and (y < 50) and (y > 0)):
                 pygame.quit()
