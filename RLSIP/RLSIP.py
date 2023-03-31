@@ -144,6 +144,7 @@ def RegKeys(CurrentLevel):
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
+                print(x, y)
                 if ((x < 1851) and (x > 1649) and (y < 201) and (y > 0)):
                     OutPlay = True
     return CharacterX, CharacterY, CurrentLevel
@@ -175,7 +176,11 @@ def Limits(CharacterX, CharacterY, CurrentLevel):
         elif CharacterX == 200:
             FallAnimation(CharacterX, CharacterY, 200)
             CharacterX = 200
-            CharacterY = 200
+            CharacterY = 150
+        elif CharacterX == 400:
+            FallAnimation(CharacterX, CharacterY, 400)
+            CharacterX = 400
+            CharacterY = 350
         elif CharacterX == 1000:
             CharacterX = 900
             LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
