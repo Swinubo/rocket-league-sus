@@ -28,7 +28,7 @@ def LevelDispl(CharacterX, CharacterY, Image):
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(0, 200, 200, 1800))
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(200, 350, 200, 1800))
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(400, 500, 200, 1800))
-        pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(900, 200, 200, 750))
+        pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(1100, 0, 400, 600))
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(800, 700, 1850, 750))
         pygame.draw.polygon(DisplStuff.scrn, DisplStuff.PURPLE, ((1550, 300), (1550, 400), (1700, 400), (1700, 450), (1850, 350), (1700, 250), (1700, 300)))
         DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
@@ -39,7 +39,7 @@ def Jump(CharacterX, CharacterY, CurrentLevel):
     OutUp = False
     OutDown = False
 
-    while OutUp == OutUpCheck(CharacterY):
+    while OutUp == OutUpCheck(CharacterY, CurrentLevel):
         CharacterY -= 20
         LevelDispl(CharacterX, CharacterY, Character)
         for event in pygame.event.get():
@@ -52,7 +52,7 @@ def Jump(CharacterX, CharacterY, CurrentLevel):
                     CharacterX, CharacterY, CurrentLevel, OutPlay = Limits(CharacterX, CharacterY, CurrentLevel)
         clock.tick(30)
 
-    while OutDown == OutDownCheck(CharacterY):
+    while OutDown == OutDownCheck(CharacterY, CurrentLevel):
         CharacterY += 20
         LevelDispl(CharacterX, CharacterY, Character)
         for event in pygame.event.get():
@@ -66,17 +66,29 @@ def Jump(CharacterX, CharacterY, CurrentLevel):
         clock.tick(30)
     return CharacterX, CharacterY - 20
 
-def OutUpCheck(CharacterY):
-    if CharacterY < 0:
-        return True
-    else:
-        return False
+def OutUpCheck(CharacterY, CurrentLevel):
+    if CurrentLevel == 0:
+        if CharacterY < 0:
+            return True
+        else:
+            return False
+    elif CurrentLevel == 1:
+        if CharacterY < 0:
+            return True
+        else:
+            return False
     
-def OutDownCheck(CharacterY):
-    if CharacterY > 300:
-        return True
-    else:
-        return False
+def OutDownCheck(CharacterY, CurrentLevel):
+    if CurrentLevel == 0:
+        if CharacterY > 300:
+            return True
+        else:
+            return False
+    elif CurrentLevel == 1:
+        if CharacterY > 500:
+            return True
+        else:
+            return False
     
 def Crouch(CharacterX, CharacterY):
     OutCrouch = False
@@ -142,7 +154,6 @@ def RegKeys(CurrentLevel):
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
-                print(x, y)
                 if ((x < 1851) and (x > 1649) and (y < 201) and (y > 0)):
                     OutPlay = True
     return CharacterX, CharacterY, CurrentLevel
@@ -180,12 +191,12 @@ def Limits(CharacterX, CharacterY, CurrentLevel):
             FallAnimation(CharacterX, CharacterY, 400)
             CharacterX = 400
             CharacterY = 300
-        elif CharacterX == 600:
+        elif (CharacterX == 600) and ((CharacterY == 300) or (CharacterY == 500)):
             FallAnimation(CharacterX, CharacterY, 1080)
             CharacterX, CharacterY = initXY(CurrentLevel)
-        elif (CharacterX == 100) and (CharacterY != 0):
+        elif (CharacterX == 100) and (CharacterY == 0):
             CharacterX = 200
-        elif (CharacterX == 300) and (CharacterY != 350):
+        elif (CharacterX == 300) and (CharacterY == 350):
             CharacterX = 400
         return CharacterX, CharacterY, CurrentLevel, False
     
@@ -193,6 +204,9 @@ def initXY(CurrentLevel):
     if CurrentLevel == 0:
         return 0, 300
     elif CurrentLevel == 1:
+        return 0, 0
+    elif CurrentLevel == 2:
+        easygui.msgbox('I unfortunately do not have any more levels programmed :(' , 'Levels')
         return 0, 0
         
 
