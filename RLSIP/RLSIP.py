@@ -208,6 +208,9 @@ def initXY(CurrentLevel):
     elif CurrentLevel == 2:
         easygui.msgbox('I unfortunately do not have any more levels programmed :(' , 'Levels')
         return 0, 0
+    
+def Help():
+    easygui.msgbox('Use the left and right to move the character. \n Use the up arrow to jump. \n Use the down arrow to crouch. \n You can change characters when you press on PLAYERS. \n And if you forget any of this, you can press H on the main menu.', 'Help')
         
 
 done = False
@@ -217,6 +220,8 @@ CurrentLevel = 0
 Character = DisplStuff.PresidentDispl #Default character stats if none are selected
 CrouchedDispl = DisplStuff.CrouchedPresidentDispl #Default character stats if none are selected
 MenuDispl = DisplStuff.MenuPresidentDispl #Default character stats if none are selected
+
+Help()
 
 #Main game loop
 #Do you think that the code should have more comments?
@@ -358,6 +363,10 @@ while not done:
             elif ((x < 1920) and (x > 1869) and (y < 50) and (y > 0)):
                 pygame.quit()
                 quit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_h:
+                Help()
+
         # This limits the while loop to a max of 60 times per second.
         clock.tick(60)
 
