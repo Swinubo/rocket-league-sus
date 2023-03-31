@@ -22,6 +22,7 @@ CARD_IMAGE_SIZE = (300, 450)
 CROUCH_IMAGE_SIZE = (200, 100)
 SMALL_SQUARE_IMAGE_SIZE = (50, 50)
 CHARACTER_IMAGE_SIZE = (400, 400)
+MENU_IMAGE_SIZE = (750, 750)
 
 ShopDisp = pygame.image.load(str(pathlib.Path(image_path, "Shop.jpg"))).convert()
 ShopDispl = pygame.transform.scale(ShopDisp, DEFAULT_IMAGE_SIZE)
@@ -44,29 +45,23 @@ BoxRedDispl = pygame.transform.scale(BoxRedDisp, BOX_IMAGE_SIZE)
 BoxYellowDisp = pygame.image.load(str(pathlib.Path(image_path, "BoxYellow.jpg"))).convert()
 BoxYellowDispl = pygame.transform.scale(BoxYellowDisp, BOX_IMAGE_SIZE)
 
-RonaldoDisp = pygame.image.load(str(pathlib.Path(image_path, "Ronaldo.png"))).convert()
-RonaldoDispl = pygame.transform.scale(RonaldoDisp, CARD_IMAGE_SIZE)
-
-MessiDisp = pygame.image.load(str(pathlib.Path(image_path, "Messi.png"))).convert()
-MessiDispl = pygame.transform.scale(MessiDisp, CARD_IMAGE_SIZE)
-
-NeymarDisp = pygame.image.load(str(pathlib.Path(image_path, "Neymar.png"))).convert()
-NeymarDispl = pygame.transform.scale(NeymarDisp, CARD_IMAGE_SIZE)
-
 PresidentDisp = pygame.image.load(str(pathlib.Path(image_path, "President.jpg"))).convert()
 PresidentDispl = pygame.transform.scale(PresidentDisp, DEFAULT_IMAGE_SIZE)
 SelectPresidentDispl = pygame.transform.scale(PresidentDisp, CHARACTER_IMAGE_SIZE)
-CrouchedDispl = pygame.transform.scale(PresidentDisp, CROUCH_IMAGE_SIZE)
+CrouchedPresidentDispl = pygame.transform.scale(PresidentDisp, CROUCH_IMAGE_SIZE)
+MenuPresidentDispl = pygame.transform.scale(PresidentDisp, MENU_IMAGE_SIZE)
 
 MayorDisp = pygame.image.load(str(pathlib.Path(image_path, "Mayor.jpg"))).convert()
 MayorDispl = pygame.transform.scale(MayorDisp, DEFAULT_IMAGE_SIZE)
 SelectMayorDispl = pygame.transform.scale(MayorDisp, CHARACTER_IMAGE_SIZE)
 CrouchedMayorDispl = pygame.transform.scale(MayorDisp, CROUCH_IMAGE_SIZE)
+MenuMayorDispl = pygame.transform.scale(MayorDisp, MENU_IMAGE_SIZE)
 
 PMDisp = pygame.image.load(str(pathlib.Path(image_path, "PM.jpg"))).convert()
 PMDispl = pygame.transform.scale(PMDisp, DEFAULT_IMAGE_SIZE)
 SelectPMDispl = pygame.transform.scale(PMDisp, CHARACTER_IMAGE_SIZE)
 CrouchedPMDispl = pygame.transform.scale(PMDisp, CROUCH_IMAGE_SIZE)
+MenuPMDispl = pygame.transform.scale(PMDisp, MENU_IMAGE_SIZE)
 
 LogInDisp = pygame.image.load(str(pathlib.Path(image_path, "LogIn.png"))).convert()
 LogInDispl = pygame.transform.scale(LogInDisp, RECT_IMAGE_SIZE)

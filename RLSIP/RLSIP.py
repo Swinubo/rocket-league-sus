@@ -8,7 +8,7 @@ def FallAnimation(CharacterX, CharacterY, Limit):
     OutFallAnimation = False
     while OutFallAnimation == False:
         CharacterY += 20
-        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+        LevelDispl(CharacterX, CharacterY, Character)
         if CharacterY > Limit:
             OutFallAnimation = True 
         clock.tick(30)
@@ -41,7 +41,7 @@ def Jump(CharacterX, CharacterY):
 
     while OutUp == OutUpCheck(CharacterY):
         CharacterY -= 20
-        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+        LevelDispl(CharacterX, CharacterY, Character)
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
@@ -56,7 +56,7 @@ def Jump(CharacterX, CharacterY):
 
     while OutDown == OutDownCheck(CharacterY):
         CharacterY += 20
-        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+        LevelDispl(CharacterX, CharacterY, Character)
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
@@ -86,7 +86,7 @@ def Crouch(CharacterX, CharacterY):
     OutCrouch = False
     CharacterY += 100
     while OutCrouch == False:
-        LevelDispl(CharacterX, CharacterY, DisplStuff.CrouchedDispl)
+        LevelDispl(CharacterX, CharacterY, CrouchedDispl)
         for event in pygame.event.get():
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_DOWN:
@@ -118,7 +118,7 @@ def RegKeys(CurrentLevel):
     OutPlay = False
     CharacterX, CharacterY = intitXY(CurrentLevel)
     while OutPlay == False:
-        LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+        LevelDispl(CharacterX, CharacterY, Character)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -130,11 +130,11 @@ def RegKeys(CurrentLevel):
                     CharacterX -= 100
                     if CharacterX < 0:
                         CharacterX = 0 
-                    DisplStuff.scrn.blit(DisplStuff.PresidentDispl, (CharacterX, CharacterY))
+                    DisplStuff.scrn.blit(Character, (CharacterX, CharacterY))
                     pygame.display.flip()
                 elif event.key == pygame.K_RIGHT:
                     CharacterX += 100
-                    DisplStuff.scrn.blit(DisplStuff.PresidentDispl, (CharacterX, CharacterY))
+                    DisplStuff.scrn.blit(Character, (CharacterX, CharacterY))
                     pygame.display.flip()
                 elif event.key == pygame.K_UP:
                     CharacterX, CharacterY = Jump(CharacterX, CharacterY)
@@ -154,7 +154,7 @@ def RegKeys(CurrentLevel):
 def Limits(CharacterX, CharacterY, CurrentLevel):
     if CurrentLevel == 0:
         if CharacterX > 1800:
-            LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+            LevelDispl(CharacterX, CharacterY, Character)
             easygui.msgbox('You just beat this level!' , 'Congratulations')
             CurrentLevel += 1
             return CharacterX, CharacterY, CurrentLevel, True
@@ -164,14 +164,14 @@ def Limits(CharacterX, CharacterY, CurrentLevel):
             CharacterY = 300
         elif CharacterX == 1000:
             CharacterX = 900
-            LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+            LevelDispl(CharacterX, CharacterY, Character)
         elif CharacterX == 1400:
             CharacterX = 1500
-            LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+            LevelDispl(CharacterX, CharacterY, Character)
         return CharacterX, CharacterY, CurrentLevel, False
     elif CurrentLevel == 1:
         if CharacterX > 1800:
-            LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
+            LevelDispl(CharacterX, CharacterY, Character)
             easygui.msgbox('You just beat this level!' , 'Congratulations')
             CurrentLevel += 1
             return CharacterX, CharacterY, CurrentLevel, True
@@ -203,6 +203,9 @@ done = False
 clock = pygame.time.Clock()
 RealName = 'Guest'
 CurrentLevel = 0
+Character = DisplStuff.PresidentDispl #Default character stats if none are selected
+CrouchedDispl = DisplStuff.CrouchedPresidentDispl #Default character stats if none are selected
+MenuDispl = DisplStuff.MenuPresidentDispl #Default character stats if none are selected
 
 #Main game loop
 #Do you think that the code should have more comments?
@@ -225,6 +228,7 @@ while not done:
         DisplStuff.scrn.blit(DisplStuff.LogInDispl, (1350, 10))
         DisplStuff.scrn.blit(DisplStuff.CreateAccountDispl, (1600, 10))
         DisplStuff.scrn.blit(DisplStuff.ExitDispl, (1870, 0))
+        DisplStuff.scrn.blit(MenuDispl, (500, 200))
         DisplStuff.scrn.blit(LevelMenuDispl, (550, 20))
         DisplStuff.scrn.blit(NameMenuDispl, (50, 20))
 
@@ -281,6 +285,21 @@ while not done:
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             x, y = event.pos
                             if ((x < 1851) and (x > 1649) and (y < 201) and (y > 0)):
+                                OutPlayers = True
+                            elif ((x < 650) and (x > 375) and (y < 900) and (y > 500)):
+                                Character = DisplStuff.PresidentDispl
+                                CrouchedDispl = DisplStuff.CrouchedPresidentDispl
+                                MenuDispl = DisplStuff.MenuPresidentDispl
+                                OutPlayers = True
+                            elif ((x < 1125) and (x > 850) and (y < 900) and (y > 500)):
+                                Character = DisplStuff.PMDispl
+                                CrouchedDispl = DisplStuff.CrouchedPMDispl
+                                MenuDispl = DisplStuff.MenuPMDispl
+                                OutPlayers = True
+                            elif ((x < 1625) and (x > 1350) and (y < 900) and (y > 500)):
+                                Character = DisplStuff.MayorDispl
+                                CrouchedDispl = DisplStuff.CrouchedMayorDispl
+                                MenuDispl = DisplStuff.MenuMayorDispl
                                 OutPlayers = True
                         clock.tick(60) 
             elif ((x < 1831) and (x > 1399) and (y < 951) and (y > 699)):
