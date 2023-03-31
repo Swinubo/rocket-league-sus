@@ -24,8 +24,8 @@ SMALL_SQUARE_IMAGE_SIZE = (50, 50)
 CHARACTER_IMAGE_SIZE = (400, 400)
 MENU_IMAGE_SIZE = (750, 750)
 
-ShopDisp = pygame.image.load(str(pathlib.Path(image_path, "Shop.jpg"))).convert()
-ShopDispl = pygame.transform.scale(ShopDisp, DEFAULT_IMAGE_SIZE)
+HelpDisp = pygame.image.load(str(pathlib.Path(image_path, "Help.png"))).convert()
+HelpDispl = pygame.transform.scale(HelpDisp, DEFAULT_IMAGE_SIZE)
 
 PlayersDisp = pygame.image.load(str(pathlib.Path(image_path, "Players.jpg"))).convert()
 PlayersDispl = pygame.transform.scale(PlayersDisp, DEFAULT_IMAGE_SIZE)

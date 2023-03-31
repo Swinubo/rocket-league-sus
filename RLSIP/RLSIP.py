@@ -238,7 +238,7 @@ while not done:
         LevelMenuDispl = MenuFont.render('Level: ' + str(CurrentLevel), True, DisplStuff.BLACK, DisplStuff.YELLOW)
         NameMenuDispl = MenuFont.render('Name: ' + RealName, True, DisplStuff.BLACK, DisplStuff.YELLOW)
    
-        DisplStuff.scrn.blit(DisplStuff.ShopDispl, (0, 150))
+        DisplStuff.scrn.blit(DisplStuff.HelpDispl, (0, 150))
         DisplStuff.scrn.blit(DisplStuff.PlayersDispl, (0, 400))
         DisplStuff.scrn.blit(DisplStuff.PlayDispl, (1400, 700))
         DisplStuff.scrn.blit(DisplStuff.LogInDispl, (1350, 10))
@@ -257,30 +257,7 @@ while not done:
             #Buttons
             if ((x < 201) and (x > 0)):
                 if ((y < 351) and (y > 149)):
-                    OutShop = False
-                    while OutShop == False:
-                        for event in pygame.event.get():
-                            if event.type == pygame.QUIT:
-                                pygame.quit()
-                                quit()
-                        DisplStuff.scrn.fill(DisplStuff.YELLOW)
-                        DisplStuff.scrn.blit(DisplStuff.BoxBlueDispl, (50, 300))
-                        DisplStuff.scrn.blit(DisplStuff.BoxRedDispl, (700, 300))
-                        DisplStuff.scrn.blit(DisplStuff.BoxYellowDispl, (1300, 300))
-                        DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
-                        DisplStuff.scrn.blit(DisplStuff.Boxes, (700, 100))
-                        pygame.draw.rect(DisplStuff.scrn, DisplStuff.GREEN, pygame.Rect(50, 700, 500, 250))
-                        DisplStuff.scrn.blit(DisplStuff.Buy, (130, 750))
-                        pygame.draw.rect(DisplStuff.scrn, DisplStuff.GREEN, pygame.Rect(700, 700, 500, 250))
-                        DisplStuff.scrn.blit(DisplStuff.Buy, (800, 750))
-                        pygame.draw.rect(DisplStuff.scrn, DisplStuff.GREEN, pygame.Rect(1300, 700, 500, 250))
-                        DisplStuff.scrn.blit(DisplStuff.Buy, (1400, 750))
-                        pygame.display.flip()
-                        if event.type == pygame.MOUSEBUTTONDOWN:
-                            x, y = event.pos
-                            if ((x < 1851) and (x > 1649) and (y < 201) and (y > 0)):
-                                OutShop = True
-                        clock.tick(60) 
+                    Help()
                 elif ((y < 601) and (y > 399)):
                     OutPlayers = False
                     while OutPlayers == False:
