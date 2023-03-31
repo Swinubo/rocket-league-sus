@@ -19,6 +19,7 @@ def LevelDispl(CharacterX, CharacterY, Image):
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(0, 500, 600, 750))
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(800, 500, 1850, 750))
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(1100, 0, 400, 400))
+        pygame.draw.polygon(DisplStuff.scrn, DisplStuff.PURPLE, ((1550, 300), (1550, 400), (1700, 400), (1700, 450), (1850, 350), (1700, 250), (1700, 300)))
         DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
         DisplStuff.scrn.blit(Image, (CharacterX, CharacterY))
         pygame.display.flip()
@@ -29,6 +30,7 @@ def LevelDispl(CharacterX, CharacterY, Image):
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(400, 500, 200, 1800))
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(900, 200, 200, 750))
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(800, 700, 1850, 750))
+        pygame.draw.polygon(DisplStuff.scrn, DisplStuff.PURPLE, ((1550, 300), (1550, 400), (1700, 400), (1700, 450), (1850, 350), (1700, 250), (1700, 300)))
         DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
         DisplStuff.scrn.blit(Image, (CharacterX, CharacterY))
         pygame.display.flip()
@@ -180,13 +182,14 @@ def Limits(CharacterX, CharacterY, CurrentLevel):
         elif CharacterX == 400:
             FallAnimation(CharacterX, CharacterY, 400)
             CharacterX = 400
-            CharacterY = 350
+            CharacterY = 300
+        elif CharacterX == 600:
+            FallAnimation(CharacterX, CharacterY, 1080)
+            CharacterX, CharacterY = intitXY(CurrentLevel)
         elif CharacterX == 1000:
             CharacterX = 900
-            LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
         elif CharacterX == 1400:
             CharacterX = 1500
-            LevelDispl(CharacterX, CharacterY, DisplStuff.PresidentDispl)
         return CharacterX, CharacterY, CurrentLevel, False
     
 def intitXY(CurrentLevel):
