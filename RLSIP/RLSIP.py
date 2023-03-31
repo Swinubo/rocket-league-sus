@@ -335,11 +335,15 @@ while not done:
                             QNYPass += 1
             elif ((x < 1826) and (x > 1599) and (y < 136) and (y > 9)):
                 Name = easygui.enterbox("What is do you want your account name to be?")
-
-                with open(str(pathlib.Path(DisplStuff.current_dir, 'Accounts.txt')), 'a') as Accounts:
-                    Accounts.write("\n" + str(CurrentLevel) + ' ' +  Name)
-                    Accounts.close()
-                easygui.msgbox('Your account has been created succesfully!' , 'Account') 
+                
+                if Name:
+                    print('siu')
+                    with open(str(pathlib.Path(DisplStuff.current_dir, 'Accounts.txt')), 'a') as Accounts:
+                        Accounts.write("\n" + str(CurrentLevel) + ' ' +  Name)
+                        Accounts.close()
+                    easygui.msgbox('Your account has been created succesfully!' , 'Account')
+                else:
+                    print('SIUUUUUUUUU') 
 
             elif ((x < 1920) and (x > 1869) and (y < 50) and (y > 0)):
                 pygame.quit()
