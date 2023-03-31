@@ -35,7 +35,7 @@ def LevelDispl(CharacterX, CharacterY, Image):
         DisplStuff.scrn.blit(Image, (CharacterX, CharacterY))
         pygame.display.flip()
 
-def Jump(CharacterX, CharacterY):
+def Jump(CharacterX, CharacterY, CurrentLevel):
     OutUp = False
     OutDown = False
 
@@ -46,12 +46,10 @@ def Jump(CharacterX, CharacterY):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     CharacterX -= 100
-                    if CharacterX == 1400:
-                        CharacterX = 1500
+                    CharacterX, CharacterY, CurrentLevel, OutPlay = Limits(CharacterX, CharacterY, CurrentLevel)
                 elif event.key == pygame.K_RIGHT:
                     CharacterX += 100
-                    if CharacterX == 1000:
-                        CharacterX = 900
+                    CharacterX, CharacterY, CurrentLevel, OutPlay = Limits(CharacterX, CharacterY, CurrentLevel)
         clock.tick(30)
 
     while OutDown == OutDownCheck(CharacterY):
@@ -116,7 +114,7 @@ def Crouch(CharacterX, CharacterY):
 
 def RegKeys(CurrentLevel):
     OutPlay = False
-    CharacterX, CharacterY = intitXY(CurrentLevel)
+    CharacterX, CharacterY = initXY(CurrentLevel)
     while OutPlay == False:
         LevelDispl(CharacterX, CharacterY, Character)
 
@@ -137,7 +135,7 @@ def RegKeys(CurrentLevel):
                     DisplStuff.scrn.blit(Character, (CharacterX, CharacterY))
                     pygame.display.flip()
                 elif event.key == pygame.K_UP:
-                    CharacterX, CharacterY = Jump(CharacterX, CharacterY)
+                    CharacterX, CharacterY = Jump(CharacterX, CharacterY, CurrentLevel)
 
                 elif event.key == pygame.K_DOWN:
                     CharacterX, CharacterY = Crouch(CharacterX, CharacterY)
@@ -159,9 +157,10 @@ def Limits(CharacterX, CharacterY, CurrentLevel):
             CurrentLevel += 1
             return CharacterX, CharacterY, CurrentLevel, True
         elif CharacterX == 600:
-            FallAnimation(CharacterX, CharacterY, 1000)
-            CharacterX = 0
-            CharacterY = 300
+            if CharacterY == 300:
+                FallAnimation(CharacterX, CharacterY, 1000)
+                CharacterX = 0
+                CharacterY = 300
         elif CharacterX == 1000:
             CharacterX = 900
             LevelDispl(CharacterX, CharacterY, Character)
@@ -185,14 +184,14 @@ def Limits(CharacterX, CharacterY, CurrentLevel):
             CharacterY = 300
         elif CharacterX == 600:
             FallAnimation(CharacterX, CharacterY, 1080)
-            CharacterX, CharacterY = intitXY(CurrentLevel)
-        elif CharacterX == 1000:
-            CharacterX = 900
-        elif CharacterX == 1400:
-            CharacterX = 1500
+            CharacterX, CharacterY = initXY(CurrentLevel)
+        elif (CharacterX == 100) and (CharacterY != 0):
+            CharacterX = 200
+        elif (CharacterX == 800) and (CharacterY != 0):
+            CharacterX = 200
         return CharacterX, CharacterY, CurrentLevel, False
     
-def intitXY(CurrentLevel):
+def initXY(CurrentLevel):
     if CurrentLevel == 0:
         return 0, 300
     elif CurrentLevel == 1:
