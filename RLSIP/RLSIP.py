@@ -33,6 +33,11 @@ def LevelDispl(CharacterX, CharacterY, Image):
         pygame.draw.polygon(DisplStuff.scrn, DisplStuff.PURPLE, ((1550, 300), (1550, 400), (1700, 400), (1700, 450), (1850, 350), (1700, 250), (1700, 300)))
         DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
         DisplStuff.scrn.blit(Image, (CharacterX, CharacterY))
+        if CharacterX > 199:
+            pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(0, 0, 200, 1920))
+        if CharacterX > 399:
+            pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(200, 0, 200, 1920))        
+
         pygame.display.flip()
 
 def Jump(CharacterX, CharacterY, CurrentLevel):
@@ -93,13 +98,12 @@ def OutDownCheck(CharacterY, CurrentLevel):
 def Crouch(CharacterX, CharacterY):
     OutCrouch = False
     CharacterY += 100
-    print(CharacterY)
     while OutCrouch == False:
         LevelDispl(CharacterX, CharacterY, CrouchedDispl)
         for event in pygame.event.get():
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_DOWN:
-                    if (CharacterX > 900) and (CharacterX < 1500) and (CharacterY == 600):
+                    if (CharacterX > 900) and (CharacterX < 1500):
                         easygui.msgbox('You can not do that right now! You are crouched!' , 'Warning!')
                         CharacterX = 900
                     OutCrouch = True
@@ -177,6 +181,8 @@ def Limits(CharacterX, CharacterY, CurrentLevel):
         elif CharacterX == 1400:
             CharacterX = 1500
             LevelDispl(CharacterX, CharacterY, Character)
+        elif CharacterX < 0:
+            CharacterX = 0
         return CharacterX, CharacterY, CurrentLevel, False
     elif CurrentLevel == 1:
         if CharacterX > 1800:
@@ -195,12 +201,22 @@ def Limits(CharacterX, CharacterY, CurrentLevel):
         elif (CharacterX == 600) and ((CharacterY == 300) or (CharacterY == 500)):
             FallAnimation(CharacterX, CharacterY, 1080)
             CharacterX, CharacterY = initXY(CurrentLevel)
-        elif (CharacterX == 100) and (CharacterY == 0):
+        elif (CharacterX == 100) and (CharacterY != 0):
             CharacterX = 200
-        elif (CharacterX == 300) and (CharacterY == 350):
+        elif (CharacterX == 300) and (CharacterY != 350):
             CharacterX = 400
+        elif CharacterX < 0:
+            CharacterX = 0
+        elif CharacterX == 1000:
+            CharacterX = 900
+            LevelDispl(CharacterX, CharacterY, Character)
+        elif CharacterX == 1400:
+            CharacterX = 1500
         
         return CharacterX, CharacterY, CurrentLevel, False
+
+    elif CurrentLevel == 2:
+        return CharacterX, CharacterY, CurrentLevel, True
     
 def initXY(CurrentLevel):
     if CurrentLevel == 0:
@@ -333,7 +349,6 @@ while not done:
                 Name = easygui.enterbox("What is do you want your account name to be?")
                 
                 if Name:
-                    print('siu')
                     with open(str(pathlib.Path(DisplStuff.current_dir, 'Accounts.txt')), 'a') as Accounts:
                         Accounts.write("\n" + str(CurrentLevel) + ' ' +  Name)
                         Accounts.close()
