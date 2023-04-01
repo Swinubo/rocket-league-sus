@@ -268,6 +268,7 @@ while not done:
         DisplStuff.scrn.blit(DisplStuff.LogInDispl, (1350, 10))
         DisplStuff.scrn.blit(DisplStuff.CreateAccountDispl, (1600, 10))
         DisplStuff.scrn.blit(DisplStuff.ExitDispl, (1870, 0))
+        DisplStuff.scrn.blit(DisplStuff.CreditsDispl, (1870, 60))
         DisplStuff.scrn.blit(MenuDispl, (500, 200))
         DisplStuff.scrn.blit(LevelMenuDispl, (550, 20))
         DisplStuff.scrn.blit(NameMenuDispl, (50, 20))
@@ -348,7 +349,7 @@ while not done:
                             FoundPlayer = True
                         elif Name == 'QNY':
                             if QNYPass == 1:
-                                easygui.msgbox('We have not found your account' , 'Account')
+                                easygui.msgbox('We have not found your account.' , 'Account')
                                 FoundPlayer = True
                             QNYPass += 1
             elif ((x < 1826) and (x > 1599) and (y < 136) and (y > 9)):
@@ -360,11 +361,13 @@ while not done:
                         Accounts.close()
                     easygui.msgbox('Your account has been created succesfully!' , 'Account')
                 
-                RealName = Name
+                    RealName = Name
 
             elif ((x < 1920) and (x > 1869) and (y < 50) and (y > 0)):
                 pygame.quit()
                 quit()
+            elif ((x < 1920) and (x > 1869) and (y < 111) and (y > 59)):
+                easygui.msgbox('Made by Gaspar Silva Mendes from VMC.', 'Credits')
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_h:
                 Help()

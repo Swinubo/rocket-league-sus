@@ -72,6 +72,9 @@ CreateAccountDispl = pygame.transform.scale(CreateAccountDisp, RECT_IMAGE_SIZE)
 ExitDisp = pygame.image.load(str(pathlib.Path(image_path, "Exit.png"))).convert()
 ExitDispl = pygame.transform.scale(ExitDisp, SMALL_SQUARE_IMAGE_SIZE)
 
+CreditsDisp = pygame.image.load(str(pathlib.Path(image_path, "Credits.png"))).convert()
+CreditsDispl = pygame.transform.scale(CreditsDisp, SMALL_SQUARE_IMAGE_SIZE)
+
 font = pygame.font.SysFont('Comic Sans M',  200)
 Characters = font.render('Characters', True, BLACK, YELLOW)
 Boxes = font.render('BOXES', True, BLACK, YELLOW)
