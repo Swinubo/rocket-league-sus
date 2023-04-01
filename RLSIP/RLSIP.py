@@ -367,7 +367,7 @@ while not done:
                 pygame.quit()
                 quit()
             elif ((x < 1920) and (x > 1869) and (y < 111) and (y > 59)):
-                easygui.msgbox('Made by Gaspar Silva Mendes from VMC.', 'Credits')
+                easygui.msgbox('Made by Gaspar Silva Mendes from VMC. All code and images are original.', 'Credits')
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_h:
                 Help()
