@@ -93,12 +93,13 @@ def OutDownCheck(CharacterY, CurrentLevel):
 def Crouch(CharacterX, CharacterY):
     OutCrouch = False
     CharacterY += 100
+    print(CharacterY)
     while OutCrouch == False:
         LevelDispl(CharacterX, CharacterY, CrouchedDispl)
         for event in pygame.event.get():
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_DOWN:
-                    if (CharacterX > 900) and (CharacterX < 1500):
+                    if (CharacterX > 900) and (CharacterX < 1500) and (CharacterY == 600):
                         easygui.msgbox('You can not do that right now! You are crouched!' , 'Warning!')
                         CharacterX = 900
                     OutCrouch = True
@@ -198,6 +199,7 @@ def Limits(CharacterX, CharacterY, CurrentLevel):
             CharacterX = 200
         elif (CharacterX == 300) and (CharacterY == 350):
             CharacterX = 400
+        
         return CharacterX, CharacterY, CurrentLevel, False
     
 def initXY(CurrentLevel):
