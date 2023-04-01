@@ -31,7 +31,7 @@ def LevelDispl(CharacterX, CharacterY, Image):
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(400, 500, 200, 1800))
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(1100, 0, 400, 600))
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(800, 700, 1850, 750))
-        pygame.draw.polygon(DisplStuff.scrn, DisplStuff.PURPLE, ((1550, 300), (1550, 400), (1700, 400), (1700, 450), (1850, 350), (1700, 250), (1700, 300)))
+        pygame.draw.polygon(DisplStuff.scrn, DisplStuff.PURPLE, ((1550, 500), (1550, 600), (1700, 600), (1700, 650), (1850, 550), (1700, 450), (1700, 500)))
         DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
         DisplStuff.scrn.blit(Image, (CharacterX, CharacterY))
         DisplStuff.scrn.blit(DisplStuff.Level2Name, (900, 800))
@@ -43,6 +43,10 @@ def LevelDispl(CharacterX, CharacterY, Image):
         pygame.display.flip()
 
 def Jump(CharacterX, CharacterY, CurrentLevel):
+
+    if (CharacterX < 101) and (CurrentLevel == 2):
+        return CharacterX, CharacterY
+
     OutUp = False
     OutDown = False
 
@@ -355,6 +359,8 @@ while not done:
                         Accounts.write("\n" + str(CurrentLevel) + ' ' +  Name)
                         Accounts.close()
                     easygui.msgbox('Your account has been created succesfully!' , 'Account')
+                
+                RealName = Name
 
             elif ((x < 1920) and (x > 1869) and (y < 50) and (y > 0)):
                 pygame.quit()
