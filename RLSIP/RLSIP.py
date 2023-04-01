@@ -14,7 +14,7 @@ def FallAnimation(CharacterX, CharacterY, Limit):
         clock.tick(30)
 
 def LevelDispl(CharacterX, CharacterY, Image):
-    if CurrentLevel == 0:
+    if CurrentLevel == 1:
         DisplStuff.scrn.fill(DisplStuff.WHITE)
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(0, 500, 600, 750))
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(800, 500, 1850, 750))
@@ -22,8 +22,9 @@ def LevelDispl(CharacterX, CharacterY, Image):
         pygame.draw.polygon(DisplStuff.scrn, DisplStuff.PURPLE, ((1550, 300), (1550, 400), (1700, 400), (1700, 450), (1850, 350), (1700, 250), (1700, 300)))
         DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
         DisplStuff.scrn.blit(Image, (CharacterX, CharacterY))
+        DisplStuff.scrn.blit(DisplStuff.Level1Name, (900, 800))
         pygame.display.flip()
-    elif CurrentLevel == 1:
+    elif CurrentLevel == 2:
         DisplStuff.scrn.fill(DisplStuff.WHITE)
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(0, 200, 200, 1800))
         pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(200, 350, 200, 1800))
@@ -33,6 +34,7 @@ def LevelDispl(CharacterX, CharacterY, Image):
         pygame.draw.polygon(DisplStuff.scrn, DisplStuff.PURPLE, ((1550, 300), (1550, 400), (1700, 400), (1700, 450), (1850, 350), (1700, 250), (1700, 300)))
         DisplStuff.scrn.blit(DisplStuff.HomeDispl, (1650, 0))
         DisplStuff.scrn.blit(Image, (CharacterX, CharacterY))
+        DisplStuff.scrn.blit(DisplStuff.Level2Name, (900, 800))
         if CharacterX > 199:
             pygame.draw.rect(DisplStuff.scrn, DisplStuff.BLACK, pygame.Rect(0, 0, 200, 1920))
         if CharacterX > 399:
@@ -72,24 +74,24 @@ def Jump(CharacterX, CharacterY, CurrentLevel):
     return CharacterX, CharacterY - 20
 
 def OutUpCheck(CharacterY, CurrentLevel):
-    if CurrentLevel == 0:
+    if CurrentLevel == 1:
         if CharacterY < 0:
             return True
         else:
             return False
-    elif CurrentLevel == 1:
+    elif CurrentLevel == 2:
         if CharacterY < 0:
             return True
         else:
             return False
     
 def OutDownCheck(CharacterY, CurrentLevel):
-    if CurrentLevel == 0:
+    if CurrentLevel == 1:
         if CharacterY > 300:
             return True
         else:
             return False
-    elif CurrentLevel == 1:
+    elif CurrentLevel == 2:
         if CharacterY > 500:
             return True
         else:
@@ -164,7 +166,7 @@ def RegKeys(CurrentLevel):
     return CharacterX, CharacterY, CurrentLevel
 
 def Limits(CharacterX, CharacterY, CurrentLevel):
-    if CurrentLevel == 0:
+    if CurrentLevel == 1:
         if CharacterX > 1800:
             LevelDispl(CharacterX, CharacterY, Character)
             easygui.msgbox('You just beat this level!' , 'Congratulations')
@@ -184,7 +186,7 @@ def Limits(CharacterX, CharacterY, CurrentLevel):
         elif CharacterX < 0:
             CharacterX = 0
         return CharacterX, CharacterY, CurrentLevel, False
-    elif CurrentLevel == 1:
+    elif CurrentLevel == 2:
         if CharacterX > 1800:
             LevelDispl(CharacterX, CharacterY, Character)
             easygui.msgbox('You just beat this level!' , 'Congratulations')
@@ -215,15 +217,15 @@ def Limits(CharacterX, CharacterY, CurrentLevel):
         
         return CharacterX, CharacterY, CurrentLevel, False
 
-    elif CurrentLevel == 2:
+    elif CurrentLevel == 3:
         return CharacterX, CharacterY, CurrentLevel, True
     
 def initXY(CurrentLevel):
-    if CurrentLevel == 0:
+    if CurrentLevel == 1:
         return 0, 300
-    elif CurrentLevel == 1:
-        return 0, 0
     elif CurrentLevel == 2:
+        return 0, 0
+    elif CurrentLevel == 3:
         easygui.msgbox('I unfortunately do not have any more levels programmed :(' , 'Levels')
         return 0, 0
     
@@ -234,7 +236,7 @@ def Help():
 done = False
 clock = pygame.time.Clock()
 RealName = 'Guest'
-CurrentLevel = 0
+CurrentLevel = 1
 Character = DisplStuff.PresidentDispl #Default character stats if none are selected
 CrouchedDispl = DisplStuff.CrouchedPresidentDispl #Default character stats if none are selected
 MenuDispl = DisplStuff.MenuPresidentDispl #Default character stats if none are selected
